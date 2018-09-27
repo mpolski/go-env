@@ -1,0 +1,43 @@
+{
+  "id": "/go-env-cicd",
+  "cpus": 0.1,
+  "mem": 64,
+  "disk": 0,
+  "instances": 1,
+  "container": {
+    "type": "DOCKER",
+    "volumes": [],
+    "docker": {
+      "image": "hackathonhpe/node-sample-cicd:latest",
+      "network": "BRIDGE",
+      "privileged": false,
+      "parameters": [],
+      "forcePullImage": true
+    }
+  },
+  "env": {
+    "ENV": "PROD",
+    "AUTHOR": "Damian Janiszewski"
+  },
+  "fetch": [
+    { 
+        "uri": "file:///etc/docker.tar.gz"
+    }
+  ],
+  "healthChecks": [
+    {
+      "path": "/",
+      "protocol": "HTTP",
+      "gracePeriodSeconds": 120,
+      "intervalSeconds": 16,
+      "timeoutSeconds": 8,
+      "maxConsecutiveFailures":4,
+      "ignoreHttp1xx": false
+    }
+  ],
+  "labels": {
+    "HAPROXY_GROUP": "external"
+   }
+}
+
+
